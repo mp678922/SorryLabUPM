@@ -110,9 +110,9 @@ namespace SorryLab.Editor {
         static void DeleteAllFilesInBuildPath() {
             if (Directory.Exists(AssetBundleConfig.BUILD_PATH)) {
                 Directory.Delete(AssetBundleConfig.BUILD_PATH, true);
-            } else {
-                Directory.CreateDirectory(AssetBundleConfig.BUILD_PATH);
             }
+            Directory.CreateDirectory(AssetBundleConfig.BUILD_PATH);
+
         }
         static void DeleteAllAssetBundlePrefabs() {
             if (Directory.Exists(AssetBundleConfig.BUILD_PREFAB_PATH)) {
