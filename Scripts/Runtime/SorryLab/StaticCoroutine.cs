@@ -17,7 +17,7 @@ namespace SorryLab {
         }
 
         static StaticCoroutine() {
-            GameObject gameObj = new GameObject("[OutsourceCoroutine]");
+            GameObject gameObj = new GameObject("[StaticCoroutine]");
             m_instance = gameObj.AddComponent<StaticCoroutineMono>();
             Object.DontDestroyOnLoad(gameObj);
         }

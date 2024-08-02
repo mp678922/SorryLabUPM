@@ -1,5 +1,8 @@
 using UnityEngine;
-namespace System.Collections.Generic {
+using System;
+using System.Collections;
+using System.Collections.Generic;
+namespace SorryLab {
     [Serializable]
     public class SerializableDictionary<TKey, TValue> : IEnumerable, IEnumerable<KeyValuePair<TKey, TValue>> {
         public List<TKey> keys = new List<TKey>();

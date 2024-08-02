@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace SorryLab {
-    static class GameObjectExpansion {
+namespace SorryLab.Expansion {
+    static public class GameObjectExpansion {
 
         public static T GetOrAddComponent<T>(this GameObject self) where T : Component {
             return self.GetComponent<T>() ?? self.AddComponent<T>();

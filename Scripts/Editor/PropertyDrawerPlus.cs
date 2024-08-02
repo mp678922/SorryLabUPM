@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using System.Reflection;
 
+#if UNITY_EDITOR
 namespace SorryLab.Editor {
 
     public class PropertyDrawerPlus<T> : PropertyDrawer {
@@ -160,3 +161,4 @@ namespace SorryLab.Editor {
     }
 
 }
+#endif

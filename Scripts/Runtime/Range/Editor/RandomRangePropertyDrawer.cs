@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+#if UNITY_EDITOR
 using SorryLab.Editor;
 
 namespace SorryLab.Range {
@@ -226,3 +227,4 @@ namespace SorryLab.Range {
 
 }
 
+#endif

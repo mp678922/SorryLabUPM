@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 namespace SorryLab.Expansion {
-    static class ListExpansion {
+    static public class ListExpansion {
         public static T Dequeue<T>(this List<T> list) {
             if (list.Count == 0) { return default(T); }
             T first = list[0];
@@ -27,6 +25,5 @@ namespace SorryLab.Expansion {
             }
         }
     }
-
 }
 

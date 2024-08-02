@@ -15,6 +15,7 @@ namespace SorryLab {
             foreach (IWeightDice<T> i in list) { Add(i); }
         }
         public void Add(T obj, float weight) {
+            if (weight == 0f) { return; }
             m_objects[obj] = weight;
             m_max += weight;
         }
@@ -52,6 +53,7 @@ namespace SorryLab {
             foreach (IWeightDiceEnum<T> i in list) { Add(i); }
         }
         public void Add(T obj, float weight) {
+            if (weight == 0f) { return; }
             m_objects[obj] = weight;
             m_max += weight;
         }

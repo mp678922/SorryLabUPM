@@ -15,6 +15,22 @@ namespace SorryLab.Expansion {
             self.rotation = Quaternion.Euler(0f, 0f, rot_z);
         }
 
+        public static void SetPositionX(this Transform self, float x) {
+            Vector3 pos = self.position;
+            pos.x = x;
+            self.position = pos;
+        }
+        public static void SetPositionY(this Transform self, float y) {
+            Vector3 pos = self.position;
+            pos.y = y;
+            self.position = pos;
+        }
+        public static void SetPositionZ(this Transform self, float z) {
+            Vector3 pos = self.position;
+            pos.z = z;
+            self.position = pos;
+        }
+
         public static Coroutine Move(this Transform self, Vector3 offest, float time, EaseType easeType = EaseType.Linear, Space relativeTo = Space.World, bool usingRealTime = false) {
             return StaticCoroutine.StartCoroutine(MoveAsync(self, offest, time, easeType, relativeTo, usingRealTime));
         }
