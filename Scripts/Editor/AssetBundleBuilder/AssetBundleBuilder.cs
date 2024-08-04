@@ -14,6 +14,7 @@ namespace SorryLab.Editor {
                 DeleteAllFilesInBuildPath();
                 BuildPipeline.BuildAssetBundles(AssetBundleConfig.BUILD_PATH, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.WebGL);
                 DeleteAllManifest();
+                ShowDeleteBuildPRefabsDialog();
                 OpenAssetBundleFolder();
                 Clipboard.Apply();
             } else {
@@ -26,6 +27,7 @@ namespace SorryLab.Editor {
                 DeleteAllFilesInBuildPath();
                 BuildPipeline.BuildAssetBundles(AssetBundleConfig.BUILD_PATH, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
                 DeleteAllManifest();
+                ShowDeleteBuildPRefabsDialog();
                 OpenAssetBundleFolder();
                 Clipboard.Apply();
             } else {
@@ -54,6 +56,17 @@ namespace SorryLab.Editor {
             }
             Debug.Log("AssetBundles have been deleted.");
         }
+        static private void ShowDeleteBuildPRefabsDialog() {
+            bool result = EditorUtility.DisplayDialog(
+                "AssetBundle Builder",
+                "Do you want to delete the Build Prefabs?",
+                "Yes",
+                "No"
+            );
+            if (result) {
+                DeleteAllAssetBundlePrefabs();
+            }
+        }
         static void SelectOriginPrefabPath() {
             Debug.Log($"Please place the Prefab into {AssetBundleConfig.ORIGIN_PREFAB_PATH}.");
             AssetDatabase.Refresh();
@@ -69,6 +82,7 @@ namespace SorryLab.Editor {
         }
         static bool CreatePrefabs() {
             DeleteAllAssetBundlePrefabs();
+            AssetDatabase.RemoveUnusedAssetBundleNames();
             if (!Directory.Exists(AssetBundleConfig.ORIGIN_PREFAB_PATH)) {
                 Directory.CreateDirectory(AssetBundleConfig.ORIGIN_PREFAB_PATH);
                 return false;
@@ -114,11 +128,11 @@ namespace SorryLab.Editor {
                 Directory.Delete(AssetBundleConfig.BUILD_PATH, true);
             }
             Directory.CreateDirectory(AssetBundleConfig.BUILD_PATH);
-
         }
         static void DeleteAllAssetBundlePrefabs() {
-            if (Directory.Exists(AssetBundleConfig.BUILD_PREFAB_PATH)) {
-                Directory.Delete(AssetBundleConfig.BUILD_PREFAB_PATH, true);
+            if (AssetDatabase.IsValidFolder(AssetBundleConfig.BUILD_PREFAB_PATH)) {
+                bool result = AssetDatabase.DeleteAsset(AssetBundleConfig.BUILD_PREFAB_PATH);
+                AssetDatabase.Refresh();
             }
         }
         static List<FileInfo> GetAllDeepFiles(string folderPath, string extension, string parent = "") {

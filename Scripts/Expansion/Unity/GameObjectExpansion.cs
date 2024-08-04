@@ -29,6 +29,9 @@ namespace SorryLab.Expansion {
             }
             return null;
         }
+        public static RectTransform GetRectTransform(this GameObject self) {
+            return self.GetComponent<RectTransform>();
+        }
 
     }
 }

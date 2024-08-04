@@ -33,26 +33,31 @@ namespace SorryLab.Editor {
             if (_instance == null) {
                 _instance = GetWindow<EditorUI_UGUIHelper>("UGUIHelper");
             }
-            _instance.AutoFindCurrentGameObject();
+            _instance.AutoFindActiveGameObject();
             _instance.Focus();
         }
         GameObject _target;
         int _componentIndex;
         void OnGUI() {
-            UILayout.ObjectField<GameObject>(_target, true, (go) => { _target = go; }).Draw();
+            UILayout.ObjectField<GameObject>(_target, true, (go) => {
+                _target = go;
+                AutoFindComponent(_target);
+            }).Draw();
             if (_target != null) { DrawGameObject(_target); }
         }
-        void AutoFindCurrentGameObject() {
+        void AutoFindActiveGameObject() {
             if (Selection.activeGameObject == null) return;
-            Component[] components = Selection.activeGameObject.GetComponents(typeof(Component));
+            AutoFindComponent(Selection.activeGameObject);
+        }
+        void AutoFindComponent(GameObject gameObject) {
+            Component[] components = gameObject.GetComponents(typeof(Component));
             for (int i = 0; i < components.Length; i++) {
                 if (HasEligibleField(components[i])) {
-                    _target = Selection.activeGameObject;
+                    _target = gameObject;
                     _componentIndex = i;
                     return;
                 }
             }
-
         }
         void DrawGameObject(GameObject go) {
             Component[] components = go.GetComponents(typeof(Component));
@@ -81,7 +86,7 @@ namespace SorryLab.Editor {
         void DrawFields(Component component, FieldInfo fieldInfo) {
             UILayout.Horizontal(() => {
                 UILayout.Label(fieldInfo.name)
-                .SetWidth(Mathf.Max(100f, position.width * 0.25f))
+                .SetWidth(Mathf.Max(100f, position.width * 0.4f))
                 .SetTextAnchor(TextAnchor.MiddleLeft)
                 .Draw();
                 if (fieldInfo.isNull()) {
@@ -143,42 +148,47 @@ namespace SorryLab.Editor {
         }
         void PrintScript(Component component, List<FieldInfo> fieldInfos) {
             Clipboard.Write($"//{component.GetType().Name}");
+            Func<string, string> GetFunctionName = (name) => {
+                if (string.IsNullOrEmpty(name)) { return name; }
+                while (name[0] == '_') { name = name.Substring(1); }
+                return StringUtils.CapitalizeFirstLetter(name);
+            };
             Clipboard.Write("void Start() {");
             foreach (FieldInfo i in fieldInfos) {
-                string capitalizeFirstLetter = StringUtils.CapitalizeFirstLetter(i.name);
+                string functionName = GetFunctionName(i.name);
                 if (i.type == typeof(Button)) {
-                    Clipboard.Write($"\t{i.name}.onClick.AddListener(OnClick_{capitalizeFirstLetter});");
+                    Clipboard.Write($"\t{i.name}.onClick.AddListener(OnClick_{functionName});");
                 }
                 if (i.type == typeof(TMP_InputField)) {
-                    Clipboard.Write($"\t{i.name}.onEndEdit.AddListener(OnEndEdit_{capitalizeFirstLetter});");
+                    Clipboard.Write($"\t{i.name}.onEndEdit.AddListener(OnEndEdit_{functionName});");
                 }
                 if (i.type == typeof(TMP_Dropdown)) {
-                    Clipboard.Write($"\t{i.name}.onValueChanged.AddListener(OnValueChanged_{capitalizeFirstLetter});");
+                    Clipboard.Write($"\t{i.name}.onValueChanged.AddListener(OnValueChanged_{functionName});");
                 }
                 if (i.type == typeof(Toggle)) {
-                    Clipboard.Write($"\t{i.name}.onValueChanged.AddListener(OnValueChanged_{capitalizeFirstLetter});");
+                    Clipboard.Write($"\t{i.name}.onValueChanged.AddListener(OnValueChanged_{functionName});");
                 }
                 if (i.type == typeof(Slider)) {
-                    Clipboard.Write($"\t{i.name}.onValueChanged.AddListener(OnValueChanged_{capitalizeFirstLetter});");
+                    Clipboard.Write($"\t{i.name}.onValueChanged.AddListener(OnValueChanged_{functionName});");
                 }
             }
             Clipboard.Write("}");
             foreach (FieldInfo i in fieldInfos) {
-                string capitalizeFirstLetter = StringUtils.CapitalizeFirstLetter(i.name);
+                string functionName = GetFunctionName(i.name);
                 if (i.type == typeof(Button)) {
-                    Clipboard.Write($"private void OnClick_{capitalizeFirstLetter}() {{ }}");
+                    Clipboard.Write($"private void OnClick_{functionName}() {{ }}");
                 }
                 if (i.type == typeof(TMP_InputField)) {
-                    Clipboard.Write($"private void OnEndEdit_{capitalizeFirstLetter}(string value) {{ }}");
+                    Clipboard.Write($"private void OnEndEdit_{functionName}(string value) {{ }}");
                 }
                 if (i.type == typeof(TMP_Dropdown)) {
-                    Clipboard.Write($"private void OnValueChanged_{capitalizeFirstLetter}(int value) {{ }}");
+                    Clipboard.Write($"private void OnValueChanged_{functionName}(int value) {{ }}");
                 }
                 if (i.type == typeof(Toggle)) {
-                    Clipboard.Write($"private void OnValueChanged_{capitalizeFirstLetter}(bool value) {{ }}");
+                    Clipboard.Write($"private void OnValueChanged_{functionName}(bool value) {{ }}");
                 }
                 if (i.type == typeof(Slider)) {
-                    Clipboard.Write($"private void OnValueChanged_{capitalizeFirstLetter}(float value) {{ }}");
+                    Clipboard.Write($"private void OnValueChanged_{functionName}(float value) {{ }}");
                 }
             }
             Clipboard.Apply();

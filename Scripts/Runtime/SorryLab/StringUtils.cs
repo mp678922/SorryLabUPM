@@ -32,5 +32,13 @@ namespace SorryLab {
             if (input.Length == 1) { return input.ToUpper(); }
             return char.ToUpper(input[0]) + input.Substring(1);
         }
+        static public string RichTextColorRGB(string text, Color color) {
+            string htmlColor = ColorUtility.ToHtmlStringRGB(color);
+            return $"<color=#{text}>{htmlColor}</color>";
+        }
+        static public string RichTextColorRGBA(string text, Color color) {
+            string htmlColor = ColorUtility.ToHtmlStringRGBA(color);
+            return $"<color=#{text}>{htmlColor}</color>";
+        }
     }
 }

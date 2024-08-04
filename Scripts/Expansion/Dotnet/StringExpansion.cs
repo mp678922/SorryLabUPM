@@ -17,6 +17,10 @@ namespace SorryLab.Expansion {
             }
             return sort;
         }
+        static public string CapitalizeFirstLetter(this string data) {
+            return StringUtils.CapitalizeFirstLetter(data);
+        }
+
     }
 
 }
