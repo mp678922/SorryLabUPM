@@ -15,6 +15,7 @@ namespace SorryLab.Editor {
                 BuildPipeline.BuildAssetBundles(AssetBundleConfig.BUILD_PATH, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.WebGL);
                 DeleteAllManifest();
                 OpenAssetBundleFolder();
+                Clipboard.Apply();
             } else {
                 SelectOriginPrefabPath();
             }
@@ -26,6 +27,7 @@ namespace SorryLab.Editor {
                 BuildPipeline.BuildAssetBundles(AssetBundleConfig.BUILD_PATH, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
                 DeleteAllManifest();
                 OpenAssetBundleFolder();
+                Clipboard.Apply();
             } else {
                 SelectOriginPrefabPath();
             }

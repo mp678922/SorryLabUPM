@@ -7,7 +7,8 @@ namespace SorryLab.Editor.Example {
         不會影響原始Prefab。
         */
         public override void Handle(GameObject gameObject) {
-            //Debug.Log(gameObject.name);
+            //Clipboard.Write(gameObject.name);
+            //由於建置AssetBundle會清除Log，故使用此方式留存資訊
         }
     }
 
