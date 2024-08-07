@@ -15,15 +15,15 @@ namespace SorryLab.Spring {
         protected T value;
         protected T velocity;
         protected T target;
-        public void SetStringProperty(float zeta, float omega) {
+        public void SetSpringProperty(float zeta, float omega) {
             this.zeta = zeta;
             this.omega = omega;
         }
-        public virtual void SetTargetAndClearVelocity(T target) {
+        public void SetTargetAndClearVelocity(T target) {
             this.target = target;
             velocity = default;
         }
-        public virtual T Update(T target, bool usingRealTime = false) {
+        public T Update(T target, bool usingRealTime = false) {
             this.target = target;
             return Update(usingRealTime);
         }
