@@ -34,23 +34,27 @@ namespace SorryLab {
             }
         }
         static List<FileInfo> GetAllDeepFiles(string folderPath, string parent = "") {
-            List<FileInfo> result = new List<FileInfo>();
-            string[] files = Directory.GetFiles(folderPath);
-            for (int i = 0; i < files.Length; i++) {
-                string path = files[i];
-                if (IsAssetBundle(path)) {
-                    string name = Path.GetFileName(path);
-                    result.Add(new FileInfo(name, path, parent));
+            if (Directory.Exists(folderPath)) {
+                List<FileInfo> result = new List<FileInfo>();
+                string[] files = Directory.GetFiles(folderPath);
+                for (int i = 0; i < files.Length; i++) {
+                    string path = files[i];
+                    if (IsAssetBundle(path)) {
+                        string name = Path.GetFileName(path);
+                        result.Add(new FileInfo(name, path, parent));
+                    }
                 }
+                string[] subFolders = Directory.GetDirectories(folderPath);
+                for (int i = 0; i < subFolders.Length; i++) {
+                    string folder = parent;
+                    folder += folder == "" ? "" : "/";
+                    folder += Path.GetFileName(subFolders[i]);
+                    result.AddRange(GetAllDeepFiles(subFolders[i], folder));
+                }
+                return result;
+            } else {
+                return new List<FileInfo>();
             }
-            string[] subFolders = Directory.GetDirectories(folderPath);
-            for (int i = 0; i < subFolders.Length; i++) {
-                string folder = parent;
-                folder += folder == "" ? "" : "/";
-                folder += Path.GetFileName(subFolders[i]);
-                result.AddRange(GetAllDeepFiles(subFolders[i], folder));
-            }
-            return result;
         }
         static bool IsAssetBundle(string path) {
             string extension = AssetBundleConfig.EXTENSION;

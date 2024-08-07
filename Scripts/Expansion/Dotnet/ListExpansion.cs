@@ -3,13 +3,13 @@ using System;
 namespace SorryLab.Expansion {
     static public class ListExpansion {
         public static T Dequeue<T>(this List<T> list) {
-            if (list.Count == 0) { return default(T); }
+            if (list.Count == 0) { return default; }
             T first = list[0];
             list.RemoveAt(0);
             return first;
         }
         public static T Pop<T>(this List<T> list) {
-            if (list.Count == 0) { return default(T); }
+            if (list.Count == 0) { return default; }
             T final = list[list.Count - 1];
             list.RemoveAt(list.Count - 1);
             return final;
@@ -25,16 +25,16 @@ namespace SorryLab.Expansion {
                 list.Add(temp.Dequeue());
             }
         }
-        public static T GetRandomOne<T>(this List<T> list) {
-            return list[GetRandom().Next(list.Count)];
+        public static T GetRandomElement<T>(this List<T> list) {
+            return list[SystemRandom().Next(list.Count)];
         }
-        public static T GetRandomOneAndRemove<T>(this List<T> list) {
-            int index = GetRandom().Next(list.Count);
+        public static T GetRandomElementAndRemove<T>(this List<T> list) {
+            int index = SystemRandom().Next(list.Count);
             T obj = list[index];
             list.RemoveAt(index);
             return obj;
         }
-        static private Random GetRandom() {
+        static private Random SystemRandom() {
             long seed = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             return new Random((int)(seed & 0x00000000FFFFFFFF));
         }
