@@ -34,11 +34,11 @@ namespace SorryLab {
         }
         static public string RichTextColorRGB(string text, Color color) {
             string htmlColor = ColorUtility.ToHtmlStringRGB(color);
-            return $"<color=#{text}>{htmlColor}</color>";
+            return $"<color=#{htmlColor}>{text}</color>";
         }
         static public string RichTextColorRGBA(string text, Color color) {
             string htmlColor = ColorUtility.ToHtmlStringRGBA(color);
-            return $"<color=#{text}>{htmlColor}</color>";
+            return $"<color=#{htmlColor}>{text}</color>";
         }
     }
 }

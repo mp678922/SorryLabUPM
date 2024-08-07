@@ -78,7 +78,13 @@ namespace SorryLab {
         public System.Action onComplete;
         public System.Action onKill;
         public StaticCoroutine(IEnumerator coroutine, System.Action onComplete = null) {
-            m_instance.StartCoroutine(Async(coroutine));
+            if (Application.isPlaying) {
+                m_instance.StartCoroutine(Async(coroutine));
+            } else {
+#if UNITY_EDITOR
+                Unity.EditorCoroutines.Editor.EditorCoroutineUtility.StartCoroutine(Async(coroutine), this);
+#endif
+            }
             this.onComplete = onComplete;
         }
 

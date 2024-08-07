@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using TMPro;
 #if UNITY_EDITOR
 using UnityEditor;
+using SorryLab.Editor.UI;
 namespace SorryLab.Editor {
     public class EditorUI_UGUIHelper : EditorWindow {
         static List<Type> _typeList = new List<Type> {
@@ -39,7 +40,7 @@ namespace SorryLab.Editor {
         GameObject _target;
         int _componentIndex;
         void OnGUI() {
-            UILayout.ObjectField<GameObject>(_target, true, (go) => {
+            Layout.ObjectField<GameObject>(_target, true, (go) => {
                 _target = go;
                 AutoFindComponent(_target);
             }).Draw();
@@ -70,27 +71,31 @@ namespace SorryLab.Editor {
             }
             string[] keys = dic.Keys.ToArray();
             if (_componentIndex >= keys.Length) { _componentIndex = 0; }
-            _componentIndex = EditorGUILayout.Popup(_componentIndex, keys);
+
+            Layout.Dropdown(_componentIndex, keys, index => {
+                _componentIndex = index;
+            }).Draw();
+
             Component component = dic[keys[_componentIndex]];
             List<FieldInfo> fieldInfos = FindPublicUIFields(component);
             foreach (FieldInfo i in fieldInfos) {
                 DrawFields(component, i);
             }
             if (fieldInfos.Count > 0) {
-                UILayout.Button("Print Script", () => {
+                Layout.Button("Print Script", () => {
                     PrintScript(component, fieldInfos);
                 }).SetColor(Color.cyan)
                 .Draw();
             }
         }
         void DrawFields(Component component, FieldInfo fieldInfo) {
-            UILayout.Horizontal(() => {
-                UILayout.Label(fieldInfo.name)
+            Layout.Horizontal(() => {
+                Layout.Label(fieldInfo.name)
                 .SetWidth(Mathf.Max(100f, position.width * 0.4f))
                 .SetTextAnchor(TextAnchor.MiddleLeft)
                 .Draw();
                 if (fieldInfo.isNull()) {
-                    UILayout.Button("Create", () => {
+                    Layout.Button("Create", () => {
                         GameObject newObject = CreateUIObject(fieldInfo, component);
                         if (fieldInfo.type == typeof(TMP_Text)) { SetValue<TMP_Text>(component, newObject, fieldInfo.name); }
                         if (fieldInfo.type == typeof(TMP_InputField)) { SetValue<TMP_InputField>(component, newObject, fieldInfo.name); }
@@ -100,7 +105,7 @@ namespace SorryLab.Editor {
                         if (fieldInfo.type == typeof(Slider)) { SetValue<Slider>(component, newObject, fieldInfo.name); }
                     }).Draw();
                 } else {
-                    UILayout.ObjectField<UnityEngine.Object>(fieldInfo.value)
+                    Layout.ObjectField<UnityEngine.Object>(fieldInfo.value)
                     .SetEnable(false).Draw();
                 }
             }).SetHeight(20).Draw();
