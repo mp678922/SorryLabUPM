@@ -32,6 +32,7 @@ namespace SorryLab {
                     checkComplete.Invoke();
                 });
             }
+            if (files.Count == 0) { callback?.Invoke(elements); }
         }
         static List<FileInfo> GetAllDeepFiles(string folderPath, string parent = "") {
             if (Directory.Exists(folderPath)) {
