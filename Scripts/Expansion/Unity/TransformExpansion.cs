@@ -4,14 +4,14 @@ using UnityEngine;
 using SorryLab.Easing;
 using SorryLab;
 namespace SorryLab.Expansion {
-    static class TransformExpansion {
+    static public class TransformExpansion {
         public static void LookAt2D(this Transform self, Transform target) {
             self.LookAt2D(target.position);
         }
 
         public static void LookAt2D(this Transform self, Vector2 target) {
             Vector2 dir = (Vector2)self.position - target;
-            float rot_z = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            float rot_z = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f;
             self.rotation = Quaternion.Euler(0f, 0f, rot_z);
         }
 
