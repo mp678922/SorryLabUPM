@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SorryLab.Expansion;
 namespace SorryLab {
+    //這是方便編輯器印出資料，讓編輯者快速複製有用內容的道具
     public static class Clipboard {
         static ClipboardData _data;
         static string _currentSystem = "";

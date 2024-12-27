@@ -156,7 +156,7 @@ namespace SorryLab.Editor {
             Func<string, string> GetFunctionName = (name) => {
                 if (string.IsNullOrEmpty(name)) { return name; }
                 while (name[0] == '_') { name = name.Substring(1); }
-                return StringUtils.CapitalizeFirstLetter(name);
+                return TextUtils.CapitalizeFirstLetter(name);
             };
             Clipboard.Write("void Start() {");
             foreach (FieldInfo i in fieldInfos) {

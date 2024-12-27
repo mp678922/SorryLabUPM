@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 namespace SorryLab.Audio {
-    public class AudioPlayer : MonoBehaviour {
+    public class AudioPlayer {
         static GameObject m_instance;
         static public float mainVolume = 1f;
         static Transform m_listener;
@@ -12,7 +12,7 @@ namespace SorryLab.Audio {
         static Pool<AudioPlayerClip> m_pool;
         static Transform GetListener() {
             if (m_listener == null) {
-                AudioListener listener = FindObjectOfType<AudioListener>(true);
+                AudioListener listener = Object.FindObjectOfType<AudioListener>(true);
                 if (listener != null) {
                     m_listener = listener.transform;
                 } else {
@@ -61,7 +61,7 @@ namespace SorryLab.Audio {
             apc.audioSource = m_instance.AddComponent<AudioSource>();
             m_pool = new Pool<AudioPlayerClip>(apc);
             m_instance.SetActive(false);
-            DontDestroyOnLoad(m_instance);
+            Object.DontDestroyOnLoad(m_instance);
         }
 
         static AudioSource CreateAndPlay(AudioClip audioClip, float volume) {

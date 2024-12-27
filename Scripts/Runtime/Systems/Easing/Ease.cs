@@ -5,26 +5,8 @@ using UnityEngine;
 using SorryLab.Easing;
 
 namespace SorryLab.Easing {
-
     public delegate double EaseDelegate(double t, double b, double c, double d);
-
-    public enum EaseType {
-        Linear,
-        BackIn, BackOut, BackInOut,
-        BounceIn, BounceOut, BounceInOut,
-        CircIn, CircOut, CircInOut,
-        CubicIn, CubicOut, CubicInOut,
-        ElasticIn, ElasticOut, ElasticInOut,
-        ExpoIn, ExpoOut, ExpoInOut,
-        QuadIn, QuadOut, QuadInOut,
-        QuartIn, QuartOut, QuartInOut,
-        QuintIn, QuintOut, QuintInOut,
-        StrongIn, StrongOut, StrongInOut,
-        SineIn, SineOut, SineInOut
-    }
-
     public class Ease {
-
         static public float Lerp(float a, float b, float t, EaseType easeType) {
             float val = 0f;
             switch (easeType) {
@@ -980,13 +962,6 @@ namespace SorryLab.Easing {
         static public Quaternion LerpStrongInOut(Quaternion a, Quaternion b, float t) {
             return Quaternion.Lerp(a, b, LerpStrongInOut(0f, 1f, t));
         }
-
         #endregion
     }
-
-    abstract class EaseBase {
-        protected const double TWO_PI = Math.PI * 2;
-        protected const double HALF_PI = Math.PI / 2;
-    }
-
 }

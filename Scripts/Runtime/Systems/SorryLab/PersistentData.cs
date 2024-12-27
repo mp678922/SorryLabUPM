@@ -15,6 +15,9 @@ namespace SorryLab {
             }
             File.WriteAllText(filePath, text);
         }
+        public static void WriteGZip(string text, string folder, string fileName, bool overwrite = true) {
+            WriteAllBytes(Gzip.CompressString(text), folder, fileName, overwrite);
+        }
         public static void WriteAllBytes(byte[] bytes, string folder, string fileName, bool overwrite = true) {
             CreateFolder(folder);
             string filePath = FilePath(folder, fileName);
@@ -24,12 +27,24 @@ namespace SorryLab {
             }
             File.WriteAllBytes(filePath, bytes);
         }
+
         public static string ReadAllText(string folder, string fileName) {
             string filePath = FilePath(folder, fileName);
             if (File.Exists(filePath)) {
                 return File.ReadAllText(filePath);
             } else {
                 return "";
+            }
+        }
+        public static string ReadGZip(string folder, string fileName) {
+            return Gzip.DecompressString(ReadAllBytes(folder, fileName));
+        }
+        public static byte[] ReadAllBytes(string folder, string fileName) {
+            string filePath = FilePath(folder, fileName);
+            if (File.Exists(filePath)) {
+                return File.ReadAllBytes(filePath);
+            } else {
+                return new byte[] { };
             }
         }
         public static void WriteAllLines(List<string> lines, string folder, string fileName, bool overwrite = true) {

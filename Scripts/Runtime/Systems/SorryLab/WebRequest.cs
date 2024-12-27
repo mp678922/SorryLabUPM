@@ -11,9 +11,6 @@ namespace SorryLab {
         public bool isError { get { return !string.IsNullOrEmpty(errorMessage); } }
         public WebRequest(string url) { this.url = url; }
         public void AppendHeader(string key, string value) { headers.Add((key, value)); }
-        public Coroutine SendRequest(TRequest content, Action<TResponse> callback = null) {
-            return StaticCoroutine.StartCoroutine(SendRequestAsync(content, callback));
-        }
         IEnumerator SendRequestAsync(TRequest content, Action<TResponse> callback) {
             string contentJsonString = JsonUtility.ToJson(content);
             using (UnityWebRequest webRequest = new UnityWebRequest(url, "POST")) {

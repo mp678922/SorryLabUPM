@@ -43,12 +43,6 @@ namespace SorryLab {
                         yield break;
                     } else {
                         AssetBundle ab = DownloadHandlerAssetBundle.GetContent(uwr);
-                        // AssetBundleInfo ae = new AssetBundleInfo {
-                        //     assetBundle = ab,
-                        //     name = System.IO.Path.GetFileName(url),
-                        //     path = url,
-                        //     gameObject = LoadGameObject(ab)
-                        // };
                         m_assetBundles[url] = ab;
                         callback?.Invoke(ab);
                     }

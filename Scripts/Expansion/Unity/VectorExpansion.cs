@@ -8,6 +8,9 @@ namespace SorryLab.Expansion {
         public static Vector3 GetRound(this Vector3 value, int roundTo = 0) {
             return new Vector3(value.x.GetRound(roundTo), value.y.GetRound(roundTo), value.z.GetRound(roundTo));
         }
+        static public int XtoInt(this Vector3 v3) { return (int)v3.x; }
+        static public int YtoInt(this Vector3 v3) { return (int)v3.y; }
+        static public int ZtoInt(this Vector3 v3) { return (int)v3.z; }
         /* Vector2 */
         static public Vector2 GetRound(this Vector2 target, int decimals) {
             Vector2 v2 = target;
@@ -19,6 +22,8 @@ namespace SorryLab.Expansion {
             Vector3 v3 = new Vector3(v2.x, v2.y, 0f);
             return v3;
         }
+        static public int XtoInt(this Vector2 v2) { return (int)v2.x; }
+        static public int YtoInt(this Vector2 v2) { return (int)v2.y; }
 
     }
 }

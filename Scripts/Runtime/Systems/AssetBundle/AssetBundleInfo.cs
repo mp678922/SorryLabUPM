@@ -10,5 +10,4 @@ namespace SorryLab {
         public string folder;
         public GameObject gameObject;
     }
-
 }

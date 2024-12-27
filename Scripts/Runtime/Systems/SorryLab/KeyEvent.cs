@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace SorryLab {
     public class KeyEvent {
-
         public KeyCode m_keyCode;
 
         public Func<bool> condition;

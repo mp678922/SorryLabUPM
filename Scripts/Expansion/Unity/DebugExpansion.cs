@@ -22,7 +22,7 @@ namespace SorryLab.Expansion {
             foreach (T i in objects) { Debug.LogError(i.ToString()); }
         }
         static public void Log(object message, Color color) {
-            Debug.Log(StringUtils.RichTextColorRGB(message.ToString(), color));
+            Debug.Log(RichTextUtils.ColorRGB(message.ToString(), color));
         }
     }
 }

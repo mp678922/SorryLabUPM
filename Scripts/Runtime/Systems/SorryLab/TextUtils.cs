@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 namespace SorryLab {
-    static public class StringUtils {
+    static public class TextUtils {
 
         static public readonly string EnglishStr = "abcdefghijklmnopqrstubwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         static public readonly string NumStr = "0123456789";
@@ -32,13 +32,6 @@ namespace SorryLab {
             if (input.Length == 1) { return input.ToUpper(); }
             return char.ToUpper(input[0]) + input.Substring(1);
         }
-        static public string RichTextColorRGB(string text, Color color) {
-            string htmlColor = ColorUtility.ToHtmlStringRGB(color);
-            return $"<color=#{htmlColor}>{text}</color>";
-        }
-        static public string RichTextColorRGBA(string text, Color color) {
-            string htmlColor = ColorUtility.ToHtmlStringRGBA(color);
-            return $"<color=#{htmlColor}>{text}</color>";
-        }
+
     }
 }
