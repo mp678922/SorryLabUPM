@@ -18,7 +18,7 @@ namespace SorryLab.Expansion {
             ;
         }
         public static void RemoveComponent<T>(this GameObject self) where T : Component {
-            GameObject.Destroy(self.GetComponent<T>());
+            Object.Destroy(self.GetComponent<T>());
         }
         public static GameObject Find(this GameObject self, string name, bool includeInactive = false) {
             var children = self.GetComponentsInChildren<Transform>(includeInactive);
