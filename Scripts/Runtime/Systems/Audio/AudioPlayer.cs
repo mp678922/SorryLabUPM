@@ -12,7 +12,7 @@ namespace SorryLab.Audio {
         static Pool<AudioPlayerClip> m_pool;
         static Transform GetListener() {
             if (m_listener == null) {
-                AudioListener listener = Object.FindObjectOfType<AudioListener>(true);
+                AudioListener listener = Object.FindAnyObjectByType<AudioListener>(FindObjectsInactive.Include);
                 if (listener != null) {
                     m_listener = listener.transform;
                 } else {
