@@ -32,6 +32,17 @@ namespace SorryLab.Expansion {
         public static RectTransform GetRectTransform(this GameObject self) {
             return self.GetComponent<RectTransform>();
         }
+        static public bool TryGetChildHierarchyPath(this GameObject self, Component child, out string path) {
+            Transform current = child.transform;
+            Transform root = self.transform;
+            path = current.name;
+            while (current.parent != null) {
+                if (current.parent == root) { return true; }
+                current = current.parent;
+                path = $"{current.name}/{path}";
+            }
+            return false;
+        }
 
     }
 }
