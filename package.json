@@ -1,7 +1,7 @@
 {
     "name": "com.sorrylab.upm",
     "displayName": "SorryLab.upm",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "unity": "2022.3",
     "description": ".",
     "license": "MIT",
@@ -11,5 +11,9 @@
         "com.unity.ugui": "1.0.0",
         "com.unity.editorcoroutines": "1.0.0"
     },
-    "type": "tool"
+    "type": "tool",
+    "author": {
+        "name": "Yun",
+        "url": "https://sorrylab.com/"
+    }
 }
