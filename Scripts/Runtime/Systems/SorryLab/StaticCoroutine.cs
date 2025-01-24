@@ -23,11 +23,10 @@ namespace SorryLab {
                 Object.DontDestroyOnLoad(gameObj);
             }
         }
-
         static public Coroutine StartCoroutine(IEnumerator method, System.Action onComplete = null) {
             return new StaticCoroutine(method, onComplete).m_coroutine;
         }
-
+        static public void StopCoroutine(Coroutine coroutine) { m_instance.StopCoroutine(coroutine); }
         static public StaticCoroutine DelayInvoke(float delayTime, System.Action method, bool usingTimeScale = true) {
             return new StaticCoroutine(DelayCallAsync(delayTime, method, usingTimeScale));
         }
