@@ -54,7 +54,7 @@ namespace SorryLab {
             private T obj;
             public TypeJson(T obj) {
                 this.obj = obj;
-                type = obj.GetType().Name;
+                type = obj.GetType().FullName;
                 Update();
             }
             public T GetObject() {
