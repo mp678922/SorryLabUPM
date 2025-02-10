@@ -6,14 +6,17 @@ namespace SorryLab.Editor.UI {
     public class UIFoldout : UIElement {
         private bool _foldout = true;
         private Action _content;
-        public UIFoldout(string label, Action content = null, bool foldout = true) {
+        private Action<bool> _onFoldoutChange;
+        public UIFoldout(string label, bool foldout = true, Action<bool> onFoldoutChange = null, Action content = null) {
             _label = label;
             _content = content;
             _foldout = foldout;
+            _onFoldoutChange = onFoldoutChange;
         }
         protected override void OnDraw() {
-            EditorGUILayout.Foldout(_foldout, _label);
-            if (_foldout) { _content?.Invoke(); }
+            bool foldout = EditorGUILayout.Foldout(_foldout, _label);
+            if (foldout != _foldout) { _onFoldoutChange?.Invoke(foldout); }
+            if (foldout) { _content?.Invoke(); }
         }
         public UIFoldout SetFoldout(bool foldout) {
             _foldout = foldout;
