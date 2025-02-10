@@ -1,6 +1,7 @@
 using System;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
 namespace SorryLab.Editor.UI {
     public class UIFoldout : UIElement {
         private bool _foldout = true;
@@ -11,15 +12,12 @@ namespace SorryLab.Editor.UI {
             _foldout = foldout;
         }
         protected override void OnDraw() {
-            _foldout = EditorGUILayout.Foldout(_foldout, _label, _style);
+            EditorGUILayout.Foldout(_foldout, _label);
+            if (_foldout) { _content?.Invoke(); }
         }
         public UIFoldout SetFoldout(bool foldout) {
             _foldout = foldout;
             return this;
-        }
-        public override void Draw() {
-            base.Draw();
-            if (_foldout) { _content?.Invoke(); }
         }
     }
 }
