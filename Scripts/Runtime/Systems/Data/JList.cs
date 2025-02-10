@@ -59,8 +59,6 @@ namespace SorryLab {
             }
             public T GetObject() {
                 if (obj == null) {
-                    Debug.Log(type);
-                    Debug.Log(json);
                     obj = ToObject();
                 }
                 return obj;
@@ -69,7 +67,8 @@ namespace SorryLab {
                 json = JsonUtility.ToJson(obj);
             }
             private T ToObject() {
-                return (T)JsonUtility.FromJson(json, Type.GetType(type));
+                if (JListUtility.onGetType == null) { Debug.LogError("[JListUtility.onGetType]沒設定過。"); }
+                return (T)JsonUtility.FromJson(json, JListUtility.onGetType(type));
             }
         }
 
