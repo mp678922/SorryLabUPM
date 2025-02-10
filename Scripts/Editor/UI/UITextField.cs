@@ -15,7 +15,7 @@ namespace SorryLab.Editor.UI {
         protected override void OnDraw() {
             string text = _label == "" ?
                 GUILayout.TextField(_content, _style, _options.ToArray()) :
-                GUILayout.TextField(_content, _style, _options.ToArray());
+                EditorGUILayout.TextField(_label, _content, _style, _options.ToArray());
             if (text != _content) { onContentChanged?.Invoke(text); }
         }
         public UITextField OnContentChanged(Action<string> action) {
