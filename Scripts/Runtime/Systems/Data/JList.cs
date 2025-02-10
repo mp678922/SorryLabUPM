@@ -58,13 +58,19 @@ namespace SorryLab {
                 Update();
             }
             public T GetObject() {
-                if (obj == null) { obj = ToObject(); }
+                if (obj == null) {
+                    Debug.Log(type);
+                    Debug.Log(json);
+                    obj = ToObject();
+                }
                 return obj;
             }
             public void Update() {
                 json = JsonUtility.ToJson(obj);
             }
-            private T ToObject() { return (T)JsonUtility.FromJson(json, Type.GetType(type)); }
+            private T ToObject() {
+                return (T)JsonUtility.FromJson(json, Type.GetType(type));
+            }
         }
 
     }
