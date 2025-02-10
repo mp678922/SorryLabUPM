@@ -41,7 +41,7 @@ namespace SorryLab.Editor.UI {
             _options.AddRange(options);
             return this;
         }
-        public void Draw() {
+        public virtual void Draw() {
             if (_isBeginHorizontal && _horizontalHeight > 0) { SetHeight(_horizontalHeight); }
             if (_isBeginVertical && _verticalWidth > 0) { SetWidth(_verticalWidth); }
             Color originColor = GUI.color;
