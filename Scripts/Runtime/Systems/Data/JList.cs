@@ -40,6 +40,7 @@ namespace SorryLab {
             }
             return list;
         }
+        public int Count => contents.Count;
         public IEnumerator<T> GetEnumerator() {
             return ToList().GetEnumerator();
         }
