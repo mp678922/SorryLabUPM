@@ -4,10 +4,10 @@ using UnityEditor;
 namespace SorryLab.Editor.UI {
     public class UIFoldout : UIElement {
         private bool _foldout = true;
-        private Action _draw;
-        public UIFoldout(string label, Action draw = null, bool foldout = true) {
+        private Action _content;
+        public UIFoldout(string label, Action content = null, bool foldout = true) {
             _label = label;
-            _draw = draw;
+            _content = content;
             _foldout = foldout;
         }
         protected override void OnDraw() {
@@ -19,7 +19,7 @@ namespace SorryLab.Editor.UI {
         }
         public override void Draw() {
             base.Draw();
-            if (_foldout) { _draw?.Invoke(); }
+            if (_foldout) { _content?.Invoke(); }
         }
     }
 }

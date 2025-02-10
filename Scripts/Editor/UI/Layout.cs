@@ -21,6 +21,7 @@ namespace SorryLab.Editor.UI {
         static public UIDropdown Dropdown(string label, int index, IEnumerable<string> items, Action<int> onIndexChanged = null) { return new UIDropdown(label, index, items, onIndexChanged); }
         static public UIDropdown Dropdown(int index, IEnumerable<string> items, Action<int> onIndexChanged = null) { return new UIDropdown("", index, items, onIndexChanged); }
         static public UITextField TextField(string text, Action<string> onTextChanged = null) { return new UITextField(text, onTextChanged); }
+        static public UIFoldout Foldout(string label, Action content = null, bool foldout = true) { return new UIFoldout(label, content, foldout); }
     }
 }
 #endif
