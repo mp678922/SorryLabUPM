@@ -1,24 +1,26 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+
 #if UNITY_EDITOR
 using UnityEditor;
 namespace SorryLab.Editor.UI {
-    public class UIPopupEnum<T> : UIElement where T : Enum {
+    public class UIPopup : UIElement {
         Action<int> _onIndexChanged;
-        string[] enumNames;
+        string[] _items;
         int _index;
-        public UIPopupEnum(string label, int index, Action<int> onIndexChange = null) {
+        public UIPopup(string label, string[] items, int index, Action<int> onIndexChange = null) {
             _index = index;
             _onIndexChanged = onIndexChange;
             _label = label;
-            enumNames = Enum.GetNames(typeof(T));
+            _items = items;
         }
         protected override void OnDraw() {
-            int index = EditorGUILayout.Popup(_label, _index, enumNames);
+            int index = EditorGUILayout.Popup(_label, _index, _items);
             if (index != _index) { _onIndexChanged?.Invoke(index); }
         }
-        public UIPopupEnum<T> OnIndexChanged(Action<int> action) {
+        public UIPopup OnIndexChanged(Action<int> action) {
             _onIndexChanged = action;
             return this;
         }
