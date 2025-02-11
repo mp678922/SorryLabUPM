@@ -28,8 +28,14 @@ namespace SorryLab.Editor.UI {
                 }).Draw();
             }).SetColor(_frameColor).Draw();
         }
-        public void SetFrameColor(Color color) { _frameColor = color; }
-        public void DrawOtherContent(Action content) { _drawOtherContent = content; }
+        public UIList<T> SetFrameColor(Color color) {
+            _frameColor = color;
+            return this;
+        }
+        public UIList<T> DrawOtherContent(Action content) {
+            _drawOtherContent = content;
+            return this;
+        }
     }
 }
 #endif
