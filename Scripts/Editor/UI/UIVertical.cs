@@ -15,7 +15,9 @@ namespace SorryLab.Editor.UI {
         protected override void OnDraw() {
             _isBeginVertical = true;
             _verticalWidth = width;
-            GUILayout.BeginVertical("Window");//Box
+            GUIStyle noBackgroundBox = new GUIStyle(GUI.skin.box);
+            noBackgroundBox.normal.background = null; // 移除背景
+            GUILayout.BeginVertical(noBackgroundBox);
             onDraw?.Invoke();
             GUILayout.EndVertical();
             _isBeginVertical = false;
