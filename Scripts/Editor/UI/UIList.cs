@@ -13,6 +13,7 @@ namespace SorryLab.Editor.UI {
         }
         protected override void OnDraw() {
             if (_cache == null) { _cache = ScriptableObject.CreateInstance<ScriptableCache>(); }
+            Debug.Log(_cache);
             _cache.list = _list;
             SerializedObject serializedObject = new SerializedObject(_cache);
             SerializedProperty stringListProperty = serializedObject.FindProperty("list");
