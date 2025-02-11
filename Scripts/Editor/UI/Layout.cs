@@ -29,7 +29,7 @@ namespace SorryLab.Editor.UI {
         static public UIVector2Field Vector2Field(string label, Vector2 value, Action<Vector2> onValueChanged) { return new UIVector2Field(label, value, onValueChanged); }
         static public UIVector3Field Vector3Field(string label, Vector3 value, Action<Vector3> onValueChanged) { return new UIVector3Field(label, value, onValueChanged); }
         static public UIVector4Field Vector4Field(string label, Vector4 value, Action<Vector4> onValueChanged) { return new UIVector4Field(label, value, onValueChanged); }
-        static public UIScrollView ScrollView(Action<Vector2> onPositionChanged, Action content) { return new UIScrollView(onPositionChanged, content); }
+        static public UIScrollView ScrollView(Vector2 position, Action<Vector2> onPositionChanged, Action content) { return new UIScrollView(position, onPositionChanged, content); }
     }
 }
 #endif
