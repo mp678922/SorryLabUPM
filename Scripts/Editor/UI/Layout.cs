@@ -29,6 +29,8 @@ namespace SorryLab.Editor.UI {
         static public UIVector3Field Vector3Field(string label, Vector3 value, Action<Vector3> onValueChanged) { return new UIVector3Field(label, value, onValueChanged); }
         static public UIVector4Field Vector4Field(string label, Vector4 value, Action<Vector4> onValueChanged) { return new UIVector4Field(label, value, onValueChanged); }
         static public UIToggle Toggle(string label, bool value, Action<bool> onValueChanged) { return new UIToggle(label, value, onValueChanged); }
+        static public UIColorField ColorField(string label, Color value, Action<Color> onValueChanged) { return new UIColorField(label, value, onValueChanged); }
+        static public UIGenericField<T> GenericField<T>(string label, T obj) { return new UIGenericField<T>(label, obj); }
         static public UIScrollView ScrollView(Vector2 position, Action<Vector2> onPositionChanged, Action content) { return new UIScrollView(position, onPositionChanged, content); }
     }
 }
