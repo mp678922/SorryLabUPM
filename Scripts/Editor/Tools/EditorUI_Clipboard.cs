@@ -22,6 +22,7 @@ namespace SorryLab.Editor {
             _systemIndex = Clipboard.GetSystemCount() - 1;
             _instance.Focus();
         }
+        private List<string> ls = new List<string>();
         private void OnGUI() {
             _mode = EditorGUILayout.Popup(_mode, new string[] { "System", "Note" });
             if (_mode == 0) {
