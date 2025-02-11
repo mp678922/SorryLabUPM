@@ -22,7 +22,6 @@ namespace SorryLab.Editor.UI {
         static public UIFoldout Foldout(string label, bool foldout = true, Action<bool> onFoldoutChanged = null, Action content = null) { return new UIFoldout(label, foldout, onFoldoutChanged, content); }
         static public UIPopupEnum<T> PopupEnum<T>(string label, int index, Action<int> onIndexChanged) where T : Enum { return new UIPopupEnum<T>(label, index, onIndexChanged); }
         static public UIPopup Popup(string label, string[] items, int index, Action<int> onIndexChanged) { return new UIPopup(label, items, index, onIndexChanged); }
-        static public UIStringList StringList(string label, List<string> list) { return new UIStringList(label, list); }
         static public UIIntField IntField(string label, int value, Action<int> onValueChanged) { return new UIIntField(label, value, onValueChanged); }
         static public UIFloatField FloatField(string label, float value, Action<float> onValueChanged) { return new UIFloatField(label, value, onValueChanged); }
         static public UIVector2Field Vector2Field(string label, Vector2 value, Action<Vector2> onValueChanged) { return new UIVector2Field(label, value, onValueChanged); }
@@ -32,6 +31,14 @@ namespace SorryLab.Editor.UI {
         static public UIColorField ColorField(string label, Color value, Action<Color> onValueChanged) { return new UIColorField(label, value, onValueChanged); }
         static public UIGenericField<T> GenericField<T>(string label, T obj) { return new UIGenericField<T>(label, obj); }
         static public UIScrollView ScrollView(Vector2 position, Action<Vector2> onPositionChanged, Action content) { return new UIScrollView(position, onPositionChanged, content); }
+        static public UIStringList StringList(string label, List<string> list) { return new UIStringList(label, list); }
+        static public UIIntList IntList(string label, List<int> list) { return new UIIntList(label, list); }
+        static public UIFloatList FloatList(string label, List<float> list) { return new UIFloatList(label, list); }
+        static public UIBoolList BoolList(string label, List<bool> list) { return new UIBoolList(label, list); }
+        static public UIVector2List Vector2List(string label, List<Vector2> list) { return new UIVector2List(label, list); }
+        static public UIVector3List Vector3List(string label, List<Vector3> list) { return new UIVector3List(label, list); }
+        static public UIVector4List Vector4List(string label, List<Vector4> list) { return new UIVector4List(label, list); }
+        static public UIColorList ColorList(string label, List<Color> list) { return new UIColorList(label, list); }
     }
 }
 #endif

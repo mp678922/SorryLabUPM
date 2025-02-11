@@ -1,5 +1,5 @@
-using System;
 #if UNITY_EDITOR
+using System;
 using UnityEditor;
 using UnityEngine;
 namespace SorryLab.Editor.UI {
@@ -14,9 +14,14 @@ namespace SorryLab.Editor.UI {
             _onFoldoutChanged = onFoldoutChanged;
         }
         protected override void OnDraw() {
-            bool foldout = EditorGUILayout.Foldout(_foldout, _label);
-            if (foldout != _foldout) { _onFoldoutChanged?.Invoke(foldout); }
-            if (foldout) { _content?.Invoke(); }
+            bool foldout = _foldout;
+            Layout.Vertical(() => {
+                Layout.Vertical(() => {
+                    foldout = EditorGUILayout.Foldout(_foldout, _label);
+                }).Draw();
+                if (foldout != _foldout) { _onFoldoutChanged?.Invoke(foldout); }
+                if (foldout) { _content?.Invoke(); }
+            }).Draw();
         }
         public UIFoldout SetFoldout(bool foldout) {
             _foldout = foldout;
