@@ -19,8 +19,10 @@ namespace SorryLab.Editor.UI {
                 Layout.Vertical(() => {
                     foldout = EditorGUILayout.Foldout(_foldout, _label);
                 }).Draw();
-                if (foldout != _foldout) { _onFoldoutChanged?.Invoke(foldout); }
-                if (foldout) { _content?.Invoke(); }
+                Layout.Vertical(() => {
+                    if (foldout != _foldout) { _onFoldoutChanged?.Invoke(foldout); }
+                    if (foldout) { _content?.Invoke(); }
+                }).Draw();
             }).Draw();
         }
         public UIFoldout SetFoldout(bool foldout) {
