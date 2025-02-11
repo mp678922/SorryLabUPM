@@ -20,7 +20,7 @@ namespace SorryLab.Editor.UI {
         }
         protected override void OnDraw() {
             Layout.Vertical(() => {
-                Layout.Foldout(_label, _foldout, _onFoldoutChanged, () => {
+                Layout.Foldout($"{_label}[{_list.Count}]", _foldout, _onFoldoutChanged, () => {
                     for (int i = 0; i < _list.Count; i++) {
                         _list[i] = _onDrawElement.Invoke(_list[i]);
                     }
