@@ -9,15 +9,27 @@ namespace SorryLab.Editor.UI {
         int width;
         static GUIStyle _outlineStyle;
         static GUIStyle _backgroundStyle;
+        bool _drawOutline = false;
         public UIVertical(Action onDraw, int width = 0) {
             if (width > 0) { SetHeight(width); }
             this.width = width;
             this.onDraw = onDraw;
         }
         protected override void OnDraw() {
+            _isBeginVertical = true;
+            _verticalWidth = width;
+            if (_drawOutline) {
+                DrawOutline();
+            } else {
+                DrawDefault();
+            }
+
+            _isBeginVertical = false;
+        }
+        void DrawOutline() {
             if (_outlineStyle == null || _backgroundStyle == null) {
                 Texture2D borderTexture = new Texture2D(1, 1);
-                borderTexture.SetPixel(0, 0, GUI.color = EditorGUIUtility.isProSkin ? new Color(0.12f, 0.12f, 0.12f) : new Color(0.66f, 0.66f, 0.66f));
+                borderTexture.SetPixel(0, 0, GUI.color = EditorGUIUtility.isProSkin ? new Color(0.18f, 0.18f, 0.18f) : new Color(0.71f, 0.71f, 0.71f));
                 borderTexture.Apply();
                 _outlineStyle = new GUIStyle(GUI.skin.box);
                 _outlineStyle.normal.background = borderTexture;
@@ -28,15 +40,20 @@ namespace SorryLab.Editor.UI {
                 _backgroundStyle.normal.background = borderTexture;
                 _outlineStyle.padding = new RectOffset(-10, -10, -10, -10);
             }
-            _isBeginVertical = true;
-            _verticalWidth = width;
-
             GUILayout.BeginVertical(_outlineStyle);
             GUILayout.BeginVertical(_backgroundStyle);
             onDraw?.Invoke();
             GUILayout.EndVertical();
             GUILayout.EndVertical();
-            _isBeginVertical = false;
+        }
+        void DrawDefault() {
+            GUILayout.BeginVertical("Box");
+            onDraw?.Invoke();
+            GUILayout.EndVertical();
+        }
+        public UIVertical SetOutline(bool value) {
+            _drawOutline = value;
+            return this;
         }
         public UIVertical SetWidth(int width) {
             base.SetWidth(width);

@@ -24,7 +24,7 @@ namespace SorryLab.Editor.UI {
                         if (foldout) { _content?.Invoke(); }
                     }).Draw();
                 }
-            }).Draw();
+            }).SetOutline(true).Draw();
             if (foldout != _foldout) { _onFoldoutChanged?.Invoke(foldout); }
         }
         public UIFoldout SetFoldout(bool foldout) {
