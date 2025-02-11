@@ -8,15 +8,23 @@ public class UIGenericField<T> : UIElement {
     private List<VariableInfo> _values;
     private T _target;
     private bool _foldout;
+    private List<string> _cullingFields = new List<string>();
     public UIGenericField(string label, T target) {
         _target = target;
         _label = label;
         _values = GetPublicFields(target);
     }
+    public UIGenericField<T> SetCullingFields(params string[] fieldNames) {
+        for (int i = 0; i < fieldNames.Length; i++) {
+            if (!_cullingFields.Contains(fieldNames[i])) { _cullingFields.Add(fieldNames[i]); }
+        }
+        return this;
+    }
     public override void Draw() {
         Layout.Vertical(() => {
             Layout.Foldout($"{_label}({_target.GetType().Name})", _foldout, v => _foldout = v, () => {
                 for (int i = 0; i < _values.Count; i++) {
+                    if (_cullingFields.Contains(_values[i].fieldName)) { continue; }
                     _values[i].Draw(_target);
                 }
             }).Draw();
