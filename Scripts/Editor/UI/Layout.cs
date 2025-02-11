@@ -23,7 +23,7 @@ namespace SorryLab.Editor.UI {
         static public UITextField TextField(string text, Action<string> onTextChanged = null) { return new UITextField(text, onTextChanged); }
         static public UIFoldout Foldout(string label, bool foldout = true, Action<bool> onFoldoutChanged = null, Action content = null) { return new UIFoldout(label, foldout, onFoldoutChanged, content); }
         static public UIPopupEnum<T> PopupEnum<T>(string label, int index, Action<int> onIndexChanged) where T : Enum { return new UIPopupEnum<T>(label, index, onIndexChanged); }
-        static public UIList<T> List<T>(string label, List<T> list, bool foldout, Action<bool> onFoldoutChanged, Func<T, T> onDrawElement) { return new UIList<T>(label, list, foldout, onFoldoutChanged, onDrawElement); }
+        static public UIList<T> List<T>(string label, List<T> list) { return new UIList<T>(label, list); }
         static public UIIntField IntField(string label, int value, Action<int> onValueChanged) { return new UIIntField(label, value, onValueChanged); }
         static public UIFloatField FloatField(string label, float value, Action<float> onValueChanged) { return new UIFloatField(label, value, onValueChanged); }
         static public UIVector2Field Vector2Field(string label, Vector2 value, Action<Vector2> onValueChanged) { return new UIVector2Field(label, value, onValueChanged); }
