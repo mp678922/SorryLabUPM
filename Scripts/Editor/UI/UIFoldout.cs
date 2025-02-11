@@ -21,11 +21,11 @@ namespace SorryLab.Editor.UI {
                 }).Draw();
                 if (foldout) {
                     Layout.Vertical(() => {
-                        if (foldout != _foldout) { _onFoldoutChanged?.Invoke(foldout); }
                         if (foldout) { _content?.Invoke(); }
                     }).Draw();
                 }
             }).Draw();
+            if (foldout != _foldout) { _onFoldoutChanged?.Invoke(foldout); }
         }
         public UIFoldout SetFoldout(bool foldout) {
             _foldout = foldout;
