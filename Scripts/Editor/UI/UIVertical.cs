@@ -16,7 +16,7 @@ namespace SorryLab.Editor.UI {
             _isBeginVertical = true;
             _verticalWidth = width;
             GUIStyle noBackgroundBox = new GUIStyle(GUI.skin.box);
-            noBackgroundBox.normal.background = GUI.skin.window.normal.background; // 移除背景
+            noBackgroundBox.normal.background = null; // 移除背景
             noBackgroundBox.border = new RectOffset(4, 4, 4, 4);
             GUILayout.BeginVertical(noBackgroundBox);
             onDraw?.Invoke();
