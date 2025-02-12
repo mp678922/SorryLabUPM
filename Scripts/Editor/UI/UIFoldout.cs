@@ -57,8 +57,8 @@ namespace SorryLab.Editor.UI {
             }
             menuButton.SetWidth(20).Draw();
         }
-        public UIFoldout SetLabelContent(Action labelContent) {
-            _labelContent = labelContent;
+        public UIFoldout AddLabelContent(Action labelContent) {
+            _labelContent += labelContent;
             return this;
         }
         public UIFoldout SetFoldout(bool foldout) {
