@@ -9,7 +9,7 @@ namespace SorryLab {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class JList<T> : IEnumerable<T> where T : class {
+    public class JList<T> : IEnumerable<T>, IList<T> where T : class {
         public List<TypeJson> contents = new List<TypeJson>();
         public T this[int index] {
             get { return contents[index].GetObject(); }
@@ -21,13 +21,23 @@ namespace SorryLab {
                 contents.Add(new TypeJson(values.ElementAt(i)));
             }
         }
-        public void Remove(T obj) {
+        public int IndexOf(T obj) { return ToList().IndexOf(obj); }
+        public void Insert(int index, T obj) { contents.Insert(index, new TypeJson(obj)); }
+        public void Clear() { contents.Clear(); }
+        public bool Contains(T obj) { return ToList().Contains(obj); }
+        public void CopyTo(T[] objs, int arrayIndex) {
+            List<TypeJson> ls = new List<TypeJson>();
+            for (int i = 0; i < objs.Length; i++) { ls.Add(new TypeJson(objs[i])); }
+            contents.CopyTo(ls.ToArray(), arrayIndex);
+        }
+        public bool Remove(T obj) {
             for (int i = 0; i < contents.Count; i++) {
                 if (contents[i].GetObject() == obj) {
                     contents.RemoveAt(i);
-                    break;
+                    return true;
                 }
             }
+            return false;
         }
         public void RemoveAt(int index) { contents.RemoveAt(index); }
         public void Update() {
@@ -40,7 +50,10 @@ namespace SorryLab {
             }
             return list;
         }
+
+        bool ICollection<T>.IsReadOnly => throw new NotImplementedException();
         public int Count => contents.Count;
+
         public IEnumerator<T> GetEnumerator() {
             return ToList().GetEnumerator();
         }

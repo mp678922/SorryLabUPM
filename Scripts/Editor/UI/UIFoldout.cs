@@ -50,7 +50,7 @@ namespace SorryLab.Editor.UI {
         }
         void DrawMenuButton() {
             if (_menuItems.Count == 0) { return; }
-            UIMenuButton menuButton = Layout.MenuButton("...");
+            UIMenuButton menuButton = Layout.MenuButton("☰");
             for (int i = 0; i < _menuItems.Count; i++) {
                 MenuItem item = _menuItems[i];
                 menuButton.AddItem(item.menuText, item.action);
