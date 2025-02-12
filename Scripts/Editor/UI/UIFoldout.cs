@@ -7,7 +7,7 @@ namespace SorryLab.Editor.UI {
     public class UIFoldout : UIArea {
         private bool _foldout = true;
         private Action _content;
-        private Action _labelContent;
+        private Dictionary<string, Action> _labelContents;
         private Action<bool> _onFoldoutChanged;
         private List<MenuItem> _menuItems = new List<MenuItem>();
         public UIFoldout(string label, bool foldout = true, Action<bool> onFoldoutChanged = null, Action content = null) {
@@ -32,7 +32,7 @@ namespace SorryLab.Editor.UI {
             UIVertical frame = Layout.Vertical(() => {
                 Layout.Horizontal(() => {
                     foldout = EditorGUILayout.Foldout(_foldout, _label);
-                    _labelContent?.Invoke();
+                    foreach (string i in _labelContents.Keys) { _labelContents[i]?.Invoke(); }
                     DrawMenuButton();
                 }).SetAreaType(UIAreaType.Box).Draw();
                 if (foldout) {
@@ -57,8 +57,8 @@ namespace SorryLab.Editor.UI {
             }
             menuButton.SetWidth(20).Draw();
         }
-        public UIFoldout AddLabelContent(Action labelContent) {
-            _labelContent += labelContent;
+        public UIFoldout SetLabelContent(string key, Action labelContent) {
+            _labelContents[key] = labelContent;
             return this;
         }
         public UIFoldout SetFoldout(bool foldout) {
