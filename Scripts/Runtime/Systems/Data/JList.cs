@@ -81,7 +81,11 @@ namespace SorryLab {
             }
             private T ToObject() {
                 if (JListUtility.onGetType == null) { Debug.LogError("[JListUtility.onGetType]沒設定過。"); }
-                return (T)JsonUtility.FromJson(json, JListUtility.onGetType(type));
+                try {
+                    return (T)JsonUtility.FromJson(json, JListUtility.onGetType(type));
+                } catch {
+                    return default;
+                }
             }
         }
 
