@@ -7,7 +7,7 @@ namespace SorryLab.Editor.UI {
     public class UIFoldout : UIArea {
         private bool _foldout = true;
         private Action _content;
-        private Dictionary<string, Action> _labelContents;
+        private Dictionary<string, Action> _labelContents = new Dictionary<string, Action>();
         private Action<bool> _onFoldoutChanged;
         private List<MenuItem> _menuItems = new List<MenuItem>();
         public UIFoldout(string label, bool foldout = true, Action<bool> onFoldoutChanged = null, Action content = null) {
