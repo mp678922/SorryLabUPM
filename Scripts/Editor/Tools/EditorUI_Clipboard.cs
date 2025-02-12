@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
+using System.Collections.Generic;
 using SorryLab.Editor.UI;
+using UnityEditor;
+using UnityEngine;
 namespace SorryLab.Editor {
     public class EditorUIClipboard : EditorWindow {
         static EditorUIClipboard _instance;

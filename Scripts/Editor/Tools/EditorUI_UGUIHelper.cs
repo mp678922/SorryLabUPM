@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
-using System;
-using System.Reflection;
-using SFieldInfo = System.Reflection.FieldInfo;
-using UnityEngine.UI;
-using TMPro;
 #if UNITY_EDITOR
-using UnityEditor;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using SorryLab.Editor.UI;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UI;
+using SFieldInfo = System.Reflection.FieldInfo;
 namespace SorryLab.Editor {
     public class EditorUI_UGUIHelper : EditorWindow {
         static List<Type> _typeList = new List<Type> {
@@ -125,11 +124,13 @@ namespace SorryLab.Editor {
             SFieldInfo sFieldInfo = component.GetType().GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
             if (sFieldInfo != null) {
                 sFieldInfo.SetValue(component, gameObject.GetComponentInChildren<T>());
-            };
+            }
+            ;
             PropertyInfo propertyInfo = component.GetType().GetProperty(fieldName, BindingFlags.Public | BindingFlags.Instance);
             if (propertyInfo != null) {
                 propertyInfo.SetValue(component, gameObject.GetComponentInChildren<T>(), null);
-            };
+            }
+            ;
         }
         private List<FieldInfo> FindPublicUIFields(UnityEngine.Object obj) {
             List<FieldInfo> fieldInfos = new List<FieldInfo>();
