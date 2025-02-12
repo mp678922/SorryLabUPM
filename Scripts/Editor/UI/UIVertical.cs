@@ -4,10 +4,8 @@ using UnityEngine;
 namespace SorryLab.Editor.UI {
     public class UIVertical : UIArea {
         Action onDraw;
-        int width;
         public UIVertical(Action onDraw, int width = 0) {
             if (width > 0) { SetHeight(width); }
-            this.width = width;
             this.onDraw = onDraw;
         }
         protected override void OnDraw() {
@@ -28,11 +26,6 @@ namespace SorryLab.Editor.UI {
             GUILayout.BeginVertical(_areaStyle, _options.ToArray());
             onDraw?.Invoke();
             GUILayout.EndVertical();
-        }
-        public UIVertical SetWidth(int width) {
-            base.SetWidth(width);
-            this.width = width;
-            return this;
         }
     }
 }

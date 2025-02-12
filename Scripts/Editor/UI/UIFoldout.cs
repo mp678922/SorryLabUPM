@@ -10,7 +10,6 @@ namespace SorryLab.Editor.UI {
         private Action _labelContent;
         private Action<bool> _onFoldoutChanged;
         private List<MenuItem> _menuItems = new List<MenuItem>();
-        private int _width;
         public UIFoldout(string label, bool foldout = true, Action<bool> onFoldoutChanged = null, Action content = null) {
             _label = label;
             _content = content;
@@ -41,7 +40,8 @@ namespace SorryLab.Editor.UI {
                         _content?.Invoke();
                     }).SetAreaType(UIAreaType.None).Draw();
                 }
-            }).SetWidth(_width);
+            });
+            frame.AddGUILayoutOptions(_options.ToArray());
             frame.SetAreaType(_areaType).Draw();
             if (foldout != _foldout) {
                 _onFoldoutChanged?.Invoke(foldout);
@@ -63,10 +63,6 @@ namespace SorryLab.Editor.UI {
         }
         public UIFoldout SetFoldout(bool foldout) {
             _foldout = foldout;
-            return this;
-        }
-        public UIFoldout SetWidth(int width) {
-            _width = width;
             return this;
         }
         internal class MenuItem {
