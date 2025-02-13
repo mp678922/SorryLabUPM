@@ -84,6 +84,7 @@ namespace SorryLab {
                 try {
                     return (T)JsonUtility.FromJson(json, JListUtility.onGetType(type));
                 } catch {
+                    Debug.LogWarning($"[JList]JList<{typeof(T).Name}>之中遇到反序列化失敗，該物件紀錄之類別為「{type}」。");
                     return default;
                 }
             }
