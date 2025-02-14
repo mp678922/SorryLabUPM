@@ -13,7 +13,7 @@ namespace SorryLab.Editor.UI {
             _onValueChanged = onValueChanged;
         }
         protected override void OnDraw() {
-            float value = (float)EditorGUILayout.DoubleField(_label, _value, _options.ToArray());
+            float value = (float)EditorGUILayout.FloatField(_label, _value, _options.ToArray());
             if (value != _value) { _onValueChanged?.Invoke(value); }
         }
         public UIFloatField OnValueChanged(Action<float> action) {
