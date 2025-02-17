@@ -9,7 +9,8 @@
     "dependencies": {
         "com.unity.textmeshpro": "2.1.1",
         "com.unity.ugui": "1.0.0",
-        "com.unity.editorcoroutines": "1.0.0"
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
     },
     "type": "tool",
     "author": {
