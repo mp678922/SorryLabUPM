@@ -12,7 +12,7 @@ namespace SorryLab {
             return obj.color;
         }
         public static implicit operator SColor(Color obj) {
-            return new Color(obj.r, obj.g, obj.b, obj.a);
+            return new SColor { r = obj.r, g = obj.g, b = obj.b, a = obj.a };
         }
 
         [JsonIgnore]
