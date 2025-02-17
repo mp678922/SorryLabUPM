@@ -1,7 +1,8 @@
+using System;
 using Newtonsoft.Json;
 using UnityEngine;
-
 namespace SorryLab {
+    [Serializable]
     public struct SVector3 {
         public float x;
         public float y;

@@ -1,7 +1,8 @@
+using System;
 using Newtonsoft.Json;
 using UnityEngine;
-
 namespace SorryLab {
+    [Serializable]
     public struct SColor {
         public float r;
         public float g;
