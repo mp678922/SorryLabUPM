@@ -44,7 +44,7 @@ namespace SorryLab {
         }
         public void Release() {
             while (queue.Count > 0) {
-                Object.Destroy(queue.Dequeue());
+                Object.Destroy(queue.Dequeue().gameObject);
             }
         }
         private Transform GetFolder() {
