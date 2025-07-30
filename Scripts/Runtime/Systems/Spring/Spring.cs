@@ -16,8 +16,8 @@ namespace SorryLab.Spring {
             this.zeta = zeta;
             this.omega = omega;
         }
-        public void SetTargetAndClearVelocity(T target) {
-            this.target = target;
+        public void SetValueAndClearVelocity(T value) {
+            this.value = target = value;
             velocity = default;
         }
         public T Update(T target, bool usingRealTime = false) {
