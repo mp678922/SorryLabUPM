@@ -28,7 +28,7 @@ namespace SorryLab {
             if (IsTextureLoaded(url)) {
                 callback?.Invoke(m_textureList[url]);
             } else {
-                m_instance.StartCoroutine(LoadTextureCoroutine(url, FilterMode.Bilinear, TextureWrapMode.Repeat, callback, loadFail));
+                m_instance.StartCoroutine(LoadTextureCoroutine(url, FilterMode.Bilinear, TextureWrapMode.Clamp, callback, loadFail));
             }
         }
         static public IEnumerator LoadTextureCoroutine(string url, FilterMode filterMode = FilterMode.Bilinear, TextureWrapMode wrapMode = TextureWrapMode.Clamp, Action<Texture2D> callback = null, Action<string> loadFail = null) {
