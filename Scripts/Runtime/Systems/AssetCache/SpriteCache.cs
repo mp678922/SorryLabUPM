@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 namespace SorryLab {
-    public class SptireCache : MonoBehaviour {
+    public class SpriteCache : MonoBehaviour {
         static Dictionary<string, Sprite> m_spriteList = new Dictionary<string, Sprite>();
         static List<string> m_loading = new List<string>();
-        static SptireCache m_instance;
+        static SpriteCache m_instance;
         void Awake() {
             m_instance = this;
             DontDestroyOnLoad(this);
