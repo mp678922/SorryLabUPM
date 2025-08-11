@@ -65,13 +65,13 @@ namespace SorryLab {
                         loadFail?.Invoke(url);
                         yield break;
                     } else {
+                        Refresh();
                         Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
                         texture.filterMode = filterMode;
                         texture.wrapMode = wrapMode;
                         texture.name = url;
                         m_textureList[url] = CacheData<Texture2D>.Create(texture).SetMemory(texture);
                         callback?.Invoke(texture);
-                        Refresh();
                     }
                     uwr.Dispose();
                 }
