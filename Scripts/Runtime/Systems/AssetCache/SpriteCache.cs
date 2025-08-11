@@ -23,7 +23,7 @@ namespace SorryLab {
             if (maxCacheCount > 0 && m_spriteList.Count > maxCacheCount) {
                 List<(string key, CacheData<Sprite> value)> cacheList = new();
                 foreach (var i in m_spriteList) { cacheList.Add((i.Key, i.Value)); }
-                cacheList = cacheList.OrderBy(i => i.value.useTimes).ToList();
+                cacheList = cacheList.OrderBy(i => i.value.useCount).ThenBy(i => i.value.useTime).ToList();
                 int targetCacheNum = Mathf.RoundToInt(maxCacheCount * 0.75f);
                 while (cacheList.Count > targetCacheNum) { cacheList.RemoveAt(0); }
                 m_spriteList.Clear();

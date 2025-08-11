@@ -25,7 +25,7 @@ namespace SorryLab {
             if (maxCacheCount > 0 && m_textureList.Count > maxCacheCount) {
                 List<(string key, CacheData<Texture2D> value)> cacheList = new();
                 foreach (var i in m_textureList) { cacheList.Add((i.Key, i.Value)); }
-                cacheList = cacheList.OrderBy(i => i.value.useTimes).ToList();
+                cacheList = cacheList.OrderBy(i => i.value.useCount).ThenBy(i => i.value.useTime).ToList();
                 int targetCacheNum = Mathf.RoundToInt(maxCacheCount * 0.75f);
                 while (cacheList.Count > targetCacheNum) { cacheList.RemoveAt(0); }
                 m_textureList.Clear();
