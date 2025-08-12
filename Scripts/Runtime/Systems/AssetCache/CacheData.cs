@@ -3,22 +3,22 @@ using UnityEngine;
 namespace SorryLab.Cache {
     public class CacheData<T> {
         public T data;
-        public int useCount { get; private set; } = 1;
-        public int useTime { get; private set; } = 1;
-        public int memorySize { get; private set; }
+        public int visitCount { get; private set; } = 1;
+        public int lastVisitTime { get; private set; } = 1;
+        public int memoryBytes { get; private set; }
         static public CacheData<T> Create(T data) {
-            return new CacheData<T>() { data = data, useTime = (int)System.DateTimeOffset.UtcNow.ToUnixTimeSeconds() };
+            return new CacheData<T>() { data = data, lastVisitTime = (int)System.DateTimeOffset.UtcNow.ToUnixTimeSeconds() };
         }
         public CacheData<T> SetMemory(Texture2D texture2D) {
-            memorySize = EstimateMemorySize(texture2D);
+            memoryBytes = EstimateMemoryByteSize(texture2D);
             return this;
         }
         public T GetData() {
-            useCount++;
-            useTime = (int)System.DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            visitCount++;
+            lastVisitTime = (int)System.DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             return data;
         }
-        static int EstimateMemorySize(Texture2D tex) {
+        static int EstimateMemoryByteSize(Texture2D tex) {
             if (tex == null) return 0;
             int bitsPerPixel = GetBitsPerPixel(tex.format);
             int size = tex.width * tex.height * bitsPerPixel / 8; // bytes

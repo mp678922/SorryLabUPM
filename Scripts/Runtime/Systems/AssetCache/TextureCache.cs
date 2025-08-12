@@ -11,26 +11,52 @@ namespace SorryLab {
         static List<string> m_loading = new List<string>();
         static TextureCache m_instance;
         static public int maxCacheCount { get; private set; } = -1;//-1 = 不限制
+        static public int maxMemoryBytes { get; private set; } = -1;//-1 = 不限制
         void Awake() {
             m_instance = this;
             transform.parent = null;
             hideFlags = HideFlags.HideInHierarchy;
             DontDestroyOnLoad(gameObject);
         }
+        /// <summary>
+        /// 設定最大圖片數量，超過則釋放Cache。
+        /// 可與SetMaxMemorySizeMB一併進行。
+        /// </summary>
+        /// <param name="count">小於0為不限制，大於0則開始限制。</param>
         public static void SetMaxCacheCount(int count) {
             maxCacheCount = count;
             Refresh();
         }
+        /// <summary>
+        /// 設定最大暫存記憶體，超過則釋放Cache。
+        /// 可與SetMaxCacheCount一併進行。
+        /// </summary>
+        /// <param name="mb">以Mb為單位，小於0為不限制，大於0則開始限制。</param>
+        public static void SetMaxMemorySizeMB(float mb) {
+            maxMemoryBytes = (int)(mb * 1048576f);
+            Refresh();
+        }
         static void Refresh() {
-            if (maxCacheCount > 0 && m_textureList.Count > maxCacheCount) {
-                List<(string key, CacheData<Texture2D> value)> cacheList = new();
-                foreach (var i in m_textureList) { cacheList.Add((i.Key, i.Value)); }
-                cacheList = cacheList.OrderBy(i => i.value.useCount).ThenBy(i => i.value.useTime).ToList();
-                int targetCacheNum = Mathf.RoundToInt(maxCacheCount * 0.75f);
-                while (cacheList.Count > targetCacheNum) { cacheList.RemoveAt(0); }
-                m_textureList.Clear();
-                for (int i = 0; i < cacheList.Count; i++) { m_textureList[cacheList[i].key] = cacheList[i].value; }
-            }
+            RefreshByCacheCount();
+            RefreshByMemorySize();
+        }
+        static void RefreshByCacheCount() {
+            if (maxCacheCount > 0 && m_textureList.Count > maxCacheCount) { Release(); }
+        }
+        static void RefreshByMemorySize() {
+            if (maxMemoryBytes > 0 && GetTotalMemoryBytes() > maxMemoryBytes) { Release(); }
+        }
+        static void Release() {
+            List<(string key, CacheData<Texture2D> value)> cacheList = new();
+            foreach (var i in m_textureList) { cacheList.Add((i.Key, i.Value)); }
+            cacheList = cacheList
+                .OrderBy(i => i.value.visitCount)
+                .ThenByDescending(i => i.value.memoryBytes)
+                .ThenBy(i => i.value.lastVisitTime).ToList();
+            int targetCacheNum = Mathf.RoundToInt(maxCacheCount * 0.75f);
+            while (cacheList.Count > targetCacheNum) { cacheList.RemoveAt(0); }
+            m_textureList.Clear();
+            for (int i = 0; i < cacheList.Count; i++) { m_textureList[cacheList[i].key] = cacheList[i].value; }
         }
         public static Texture2D GetLoadedTexture(string url) {
             if (IsTextureLoaded(url)) {
@@ -79,6 +105,11 @@ namespace SorryLab {
             } else {
                 callback?.Invoke(m_textureList[url].GetData());
             }
+        }
+        static public int GetTotalMemoryBytes() {
+            int bytes = 0;
+            foreach (var i in m_textureList) { bytes += i.Value.memoryBytes; }
+            return bytes;
         }
         static public void Clear() { m_textureList.Clear(); }
     }
