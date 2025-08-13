@@ -51,7 +51,7 @@ namespace SorryLab {
                 .OrderBy(i => i.value.visitCount)
                 .ThenByDescending(i => i.value.memoryBytes)
                 .ThenBy(i => i.value.lastVisitTime).ToList();
-            int targetCacheNum = Mathf.RoundToInt(maxCacheCount * 0.75f);
+            int targetCacheNum = Mathf.RoundToInt(cacheList.Count * 0.75f);
             while (cacheList.Count > targetCacheNum) { cacheList.RemoveAt(0); }
             m_spriteList.Clear();
             for (int i = 0; i < cacheList.Count; i++) { m_spriteList[cacheList[i].key] = cacheList[i].value; }
