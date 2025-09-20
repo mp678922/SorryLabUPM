@@ -43,5 +43,12 @@ namespace SorryLab {
         /// <param name="size"></param>
         /// <returns></returns>
         static public string Size(string text, int size) { return $"<size={size}>{text}</size>"; }
+        /// <summary>
+        /// 連結
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        static public string Link(string text, string action) { return $"<link={action}>{text}</link>"; }
     }
 }

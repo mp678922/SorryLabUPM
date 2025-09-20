@@ -27,6 +27,13 @@ namespace SorryLab {
             _tmpText.text = text;
             return _tmpText.GetPreferredValues(text).x;
         }
+        static public float GetWidth(TMP_Text tmpText, string text) {
+            Init();
+            _tmpText.font = tmpText.font;
+            _tmpText.fontSize = tmpText.fontSize;
+            _tmpText.text = text;
+            return _tmpText.GetPreferredValues(text).x;
+        }
         static public string WrapTextByWidth(float size, string text, float maxWidth) {
             Init();
             string outText = "";
@@ -38,6 +45,18 @@ namespace SorryLab {
                 outText += next;
             }
             return outText;
+        }
+        static public string WrapTextByWidth(TMP_Text tmpText, string text, float maxWidth) {
+            Init();
+            string result = "";
+            for (int i = 0; i < text.Length; i++) {
+                char next = text[i];
+                if (GetWidth(tmpText, result + next) > maxWidth) {
+                    result += '\n';
+                }
+                result += next;
+            }
+            return result;
         }
     }
 }
