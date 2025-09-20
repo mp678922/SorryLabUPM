@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 namespace SorryLab {
-    [RequireComponent(typeof(TMP_Text))]
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class TMP_Calculator : MonoBehaviour {
         static TMP_Calculator _instance;
         static TMP_Text _tmpText;
