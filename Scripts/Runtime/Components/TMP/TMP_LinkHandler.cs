@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 namespace SorryLab {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class TMP_LinkHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+    public class TMP_LinkHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerMoveHandler {
         TMP_Text _text => GetComponent<TMP_Text>();
         Dictionary<string, Action> _clickEvents = new Dictionary<string, Action>();
         Dictionary<string, bool> _isEnter = new Dictionary<string, bool>();
@@ -23,39 +24,44 @@ namespace SorryLab {
                 }
             }
         }
-        public void OnPointerEnter(PointerEventData eventData) {
+        public void OnPointerMove(PointerEventData eventData) {
             int linkIndex = TMP_TextUtilities.FindIntersectingLink(_text, eventData.position, eventData.pressEventCamera);
             if (linkIndex != -1) {
                 TMP_LinkInfo linkInfo = _text.textInfo.linkInfo[linkIndex];
                 string action = linkInfo.GetLinkID();
                 if (!_isEnter.ContainsKey(action)) { _isEnter[action] = false; }
-                if (!_isEnter[action] && _enterEvents.ContainsKey(action)) {
-                    _enterEvents[action].Invoke();
+                if (!_isEnter[action]) {
+                    if (_enterEvents.ContainsKey(action)) {
+                        _enterEvents[action].Invoke();
+                    }
+                    _isEnter[action] = true;
                 }
-                _isEnter[action] = true;
             }
+            CheckExit(linkIndex);
         }
         public void OnPointerExit(PointerEventData eventData) {
-            int linkIndex = TMP_TextUtilities.FindIntersectingLink(_text, eventData.position, eventData.pressEventCamera);
+            CheckExit(-1);
+        }
+        void CheckExit(int linkIndex) {
+            string action = "";
             if (linkIndex != -1) {
                 TMP_LinkInfo linkInfo = _text.textInfo.linkInfo[linkIndex];
-                string action = linkInfo.GetLinkID();
-                if (!_isEnter.ContainsKey(action)) { _isEnter[action] = false; }
-                if (_isEnter[action] && _exitEvents.ContainsKey(action)) {
-                    _exitEvents[action].Invoke();
+                action = linkInfo.GetLinkID();
+            }
+            List<string> keys = _isEnter.Keys.ToList();
+            for (int i = 0; i < keys.Count; i++) {
+                string key = keys[i];
+                if (action == key) { continue; }
+                if (_isEnter.ContainsKey(key) && _isEnter[key]) {
+                    if (_exitEvents.ContainsKey(key)) {
+                        _exitEvents[key].Invoke();
+                    }
+                    _isEnter[key] = false;
                 }
-                _isEnter[action] = false;
             }
         }
         void OnDisable() {
-            foreach (string i in _isEnter.Keys) {
-                if (_isEnter[i]) {
-                    if (_exitEvents.ContainsKey(i)) {
-                        _exitEvents[i].Invoke();
-                    }
-                    _isEnter[i] = false;
-                }
-            }
+            CheckExit(-1);
         }
         public void AddClickListener(string actionName, Action action) {
             _clickEvents[actionName] = action;
@@ -72,5 +78,7 @@ namespace SorryLab {
             _exitEvents.Clear();
             _isEnter.Clear();
         }
+
+
     }
 }
