@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,14 +34,26 @@ namespace SorryLab.Expansion {
             if (tmp_text != null) { tmp_text.color = color; }
             return button;
         }
-        static public void AddAction(this TMP_Text tmpText, string actionName, Action action) {
+        static public void AddLinkClickListener(this TMP_Text tmpText, string link, Action action) {
             if (!tmpText.TryGetComponent(out TMP_LinkHandler linkHandler)) {
                 linkHandler = tmpText.gameObject.AddComponent<TMP_LinkHandler>();
             }
-            linkHandler.AddLinkAction(actionName, action);
+            linkHandler.AddClickListener(link, action);
+        }
+        static public void AddLinkEnterListener(this TMP_Text tmpText, string link, Action action) {
+            if (!tmpText.TryGetComponent(out TMP_LinkHandler linkHandler)) {
+                linkHandler = tmpText.gameObject.AddComponent<TMP_LinkHandler>();
+            }
+            linkHandler.AddEnterListener(link, action);
+        }
+        static public void AddLinkExitListener(this TMP_Text tmpText, string link, Action action) {
+            if (!tmpText.TryGetComponent(out TMP_LinkHandler linkHandler)) {
+                linkHandler = tmpText.gameObject.AddComponent<TMP_LinkHandler>();
+            }
+            linkHandler.AddExitListener(link, action);
         }
         static public void ClearAction(this TMP_Text tmpText) {
-            if (tmpText.TryGetComponent(out TMP_LinkHandler linkHandler)) { linkHandler.ClearActions(); }
+            if (tmpText.TryGetComponent(out TMP_LinkHandler linkHandler)) { linkHandler.ClearAllEvents(); }
         }
     }
 }
