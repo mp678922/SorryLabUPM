@@ -41,17 +41,19 @@ namespace SorryLab {
                 TMP_LinkInfo linkInfo = _text.textInfo.linkInfo[linkIndex];
                 string action = linkInfo.GetLinkID();
                 if (!_isEnter.ContainsKey(action)) { _isEnter[action] = false; }
-                if (_isEnter[action] && _enterEvents.ContainsKey(action)) {
+                if (_isEnter[action] && _exitEvents.ContainsKey(action)) {
                     _exitEvents[action].Invoke();
                 }
                 _isEnter[action] = false;
             }
         }
         void OnDisable() {
-            foreach (var i in _isEnter) {
-                if (i.Value) {
-                    _exitEvents[i.Key].Invoke();
-                    _isEnter[i.Key] = false;
+            foreach (string i in _isEnter.Keys) {
+                if (_isEnter[i]) {
+                    if (_exitEvents.ContainsKey(i)) {
+                        _exitEvents[i].Invoke();
+                    }
+                    _isEnter[i] = false;
                 }
             }
         }
