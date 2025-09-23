@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 namespace SorryLab {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class TMP_LinkHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerMoveHandler {
+    public class TMP_LinkHandler : MonoBehaviour, IPointerClickHandler, IPointerMoveHandler {
         TMP_Text _text => GetComponent<TMP_Text>();
         Dictionary<string, Action> _clickEvents = new Dictionary<string, Action>();
         Dictionary<string, bool> _isEnter = new Dictionary<string, bool>();
