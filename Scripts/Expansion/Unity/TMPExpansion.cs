@@ -52,7 +52,7 @@ namespace SorryLab.Expansion {
             }
             linkHandler.AddExitListener(link, action);
         }
-        static public void ClearAction(this TMP_Text tmpText) {
+        static public void ClearAllListener(this TMP_Text tmpText) {
             if (tmpText.TryGetComponent(out TMP_LinkHandler linkHandler)) { linkHandler.ClearAllEvents(); }
         }
     }
