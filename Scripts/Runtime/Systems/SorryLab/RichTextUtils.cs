@@ -48,7 +48,18 @@ namespace SorryLab {
         /// </summary>
         /// <param name="text"></param>
         /// <param name="action"></param>
+        /// <param name="underLine"></param>
         /// <returns></returns>
-        static public string Link(string text, string action) { return $"<link={action}>{text}</link>"; }
+        static public string Link(string text, string action, bool underLine = true) {
+            string t = $"<link={action}>{text}</link>";
+            if (underLine) { t = UnderLine(t); }
+            return t;
+        }
+        /// <summary>
+        /// 底線
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        static public string UnderLine(string text) { return $"<u>{text}</u>"; }
     }
 }
