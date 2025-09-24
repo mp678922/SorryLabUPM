@@ -50,7 +50,7 @@ namespace SorryLab {
         /// <param name="action"></param>
         /// <param name="underLine"></param>
         /// <returns></returns>
-        static public string Link(string text, string action, bool underLine = true) {
+        static public string Link(string text, string action, bool underLine = false) {
             string t = $"<link={action}>{text}</link>";
             if (underLine) { t = UnderLine(t); }
             return t;
