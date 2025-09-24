@@ -4,21 +4,21 @@ using SorryLab.Editor.UI;
 using UnityEditor;
 using UnityEngine;
 namespace SorryLab.Editor {
-    public class EditorUIClipboard : EditorWindow {
-        static EditorUIClipboard _instance;
+    public class EditorUI_MessageClipboard : EditorWindow {
+        static EditorUI_MessageClipboard _instance;
         static int _mode = 0;
         static int _systemIndex = 0;
         static int _noteIndex = 0;
-        [MenuItem("{SorryLab}/Tools/Clipboard")]
+        [MenuItem("{SorryLab}/Tools/MessageClipboard")]
         public static void ShowWindow() {
             if (_instance == null) {
-                _instance = GetWindow<EditorUIClipboard>("Clipboard");
+                _instance = GetWindow<EditorUI_MessageClipboard>("MessageClipboard");
             }
         }
         public static void ShowNewClipboardInfo() {
             ShowWindow();
             _mode = 0;
-            _systemIndex = Clipboard.GetSystemCount() - 1;
+            _systemIndex = MessageClipboard.GetSystemCount() - 1;
             _instance.Focus();
         }
         private List<string> ls = new List<string>();
@@ -32,10 +32,10 @@ namespace SorryLab.Editor {
         }
         void DrawSystem() {
             float windowHeight = position.height;
-            _systemIndex = Mathf.Clamp(_systemIndex, 0, Clipboard.GetSystemCount() - 1);
-            if (Clipboard.GetSystemCount() == 0) { _systemIndex = -1; }
+            _systemIndex = Mathf.Clamp(_systemIndex, 0, MessageClipboard.GetSystemCount() - 1);
+            if (MessageClipboard.GetSystemCount() == 0) { _systemIndex = -1; }
 
-            Layout.TextArea(Clipboard.Get(_systemIndex))
+            Layout.TextArea(MessageClipboard.Get(_systemIndex))
             .SetHeight(windowHeight - 68)
             .SetEnable(_systemIndex != -1)
             .Draw();
@@ -59,7 +59,7 @@ namespace SorryLab.Editor {
                 .Draw();
 
                 //LabelCount
-                Layout.Label($"({_systemIndex + 1}/{Clipboard.GetSystemCount()})")
+                Layout.Label($"({_systemIndex + 1}/{MessageClipboard.GetSystemCount()})")
                 .SetTextAnchor(TextAnchor.MiddleCenter)
                 .SetHeight(height)
                 .Draw();
@@ -76,7 +76,7 @@ namespace SorryLab.Editor {
                 Layout.Button(">", OnSystemNextButtonClick)
                 .SetHeight(height)
                 .SetWidth(height)
-                .SetEnable(_systemIndex < Clipboard.GetSystemCount() - 1)
+                .SetEnable(_systemIndex < MessageClipboard.GetSystemCount() - 1)
                 .Draw();
             }).SetHeight(height)
             .Draw();
@@ -88,19 +88,19 @@ namespace SorryLab.Editor {
             _systemIndex--;
         }
         void OnMoveToNoteClick() {
-            Clipboard.AppendNote(Clipboard.Get(_systemIndex));
-            Clipboard.Delete(_systemIndex);
+            MessageClipboard.AppendNote(MessageClipboard.Get(_systemIndex));
+            MessageClipboard.Delete(_systemIndex);
         }
         void OnSystemDeleteClick() {
-            Clipboard.Delete(_systemIndex);
+            MessageClipboard.Delete(_systemIndex);
         }
 
         void DrawNote() {
             float windowHeight = position.height;
-            _noteIndex = Mathf.Clamp(_noteIndex, 0, Clipboard.GetNoteCount() - 1);
-            if (Clipboard.GetNoteCount() == 0) { _noteIndex = -1; }
+            _noteIndex = Mathf.Clamp(_noteIndex, 0, MessageClipboard.GetNoteCount() - 1);
+            if (MessageClipboard.GetNoteCount() == 0) { _noteIndex = -1; }
 
-            Layout.TextArea(Clipboard.GetNote(_noteIndex), OnNoteContentUpdate)
+            Layout.TextArea(MessageClipboard.GetNote(_noteIndex), OnNoteContentUpdate)
             .SetHeight(windowHeight - 68)
             .SetEnable(_noteIndex >= 0)
             .Draw();
@@ -124,7 +124,7 @@ namespace SorryLab.Editor {
                 .Draw();
 
                 //LabelCount
-                Layout.Label($"({_noteIndex + 1}/{Clipboard.GetNoteCount()})")
+                Layout.Label($"({_noteIndex + 1}/{MessageClipboard.GetNoteCount()})")
                 .SetTextAnchor(TextAnchor.MiddleCenter)
                 .SetHeight(height)
                 .Draw();
@@ -140,7 +140,7 @@ namespace SorryLab.Editor {
                 Layout.Button(">", OnNoteNextButtonClick)
                 .SetHeight(height)
                 .SetWidth(height)
-                .SetEnable(_noteIndex < Clipboard.GetNoteCount() - 1)
+                .SetEnable(_noteIndex < MessageClipboard.GetNoteCount() - 1)
                 .Draw();
             }).SetHeight(height)
             .Draw();
@@ -152,14 +152,14 @@ namespace SorryLab.Editor {
             _noteIndex--;
         }
         void OnNoteNewNoteClick() {
-            Clipboard.AppendNote("");
-            _noteIndex = Clipboard.GetNoteCount() - 1;
+            MessageClipboard.AppendNote("");
+            _noteIndex = MessageClipboard.GetNoteCount() - 1;
         }
         void OnNoteDeleteClick() {
-            Clipboard.DeleteNote(_noteIndex);
+            MessageClipboard.DeleteNote(_noteIndex);
         }
         void OnNoteContentUpdate(string text) {
-            Clipboard.WriteNote(_noteIndex, text);
+            MessageClipboard.WriteNote(_noteIndex, text);
         }
     }
 }

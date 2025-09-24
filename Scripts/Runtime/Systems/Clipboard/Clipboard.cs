@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using SorryLab.Expansion;
+using UnityEngine;
 namespace SorryLab {
     //這是方便編輯器印出資料，讓編輯者快速複製有用內容的道具
-    public static class Clipboard {
+    public static class MessageClipboard {
         static ClipboardData _data;
         static string _currentSystem = "";
-        static Clipboard() {
+        static MessageClipboard() {
             if (PersistentData.ExistsFile("SorryLab", "clipboard.json")) {
                 _data = JsonUtility.FromJson<ClipboardData>(PersistentData.ReadAllText("SorryLab", "clipboard.json"));
             } else {
@@ -28,7 +28,7 @@ namespace SorryLab {
             _currentSystem = "";
             Save();
 #if UNITY_EDITOR
-            Editor.EditorUIClipboard.ShowNewClipboardInfo();
+            Editor.EditorUI_MessageClipboard.ShowNewClipboardInfo();
 #endif
             return true;
         }

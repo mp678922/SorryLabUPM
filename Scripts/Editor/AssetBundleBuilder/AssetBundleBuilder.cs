@@ -16,7 +16,7 @@ namespace SorryLab.Editor {
                 DeleteAllManifest();
                 ShowDeleteBuildPRefabsDialog();
                 OpenAssetBundleFolder();
-                Clipboard.Apply();
+                MessageClipboard.Apply();
             } else {
                 SelectOriginPrefabPath();
             }
@@ -29,7 +29,7 @@ namespace SorryLab.Editor {
                 DeleteAllManifest();
                 ShowDeleteBuildPRefabsDialog();
                 OpenAssetBundleFolder();
-                Clipboard.Apply();
+                MessageClipboard.Apply();
             } else {
                 SelectOriginPrefabPath();
             }
