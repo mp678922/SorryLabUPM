@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 namespace SorryLab {
     static public class PersistentData {
         static public string FolderPath(string folder) { return Path.Combine(Application.persistentDataPath, "Save", folder); }
@@ -27,7 +27,14 @@ namespace SorryLab {
             }
             File.WriteAllBytes(filePath, bytes);
         }
-
+        public static bool Delete(string folder, string fileName) {
+            string filePath = FilePath(folder, fileName);
+            if (File.Exists(filePath)) {
+                File.Delete(filePath);
+                return true;
+            }
+            return false;
+        }
         public static string ReadAllText(string folder, string fileName) {
             string filePath = FilePath(folder, fileName);
             if (File.Exists(filePath)) {
